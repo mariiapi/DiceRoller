@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnStop.isEnabled = false
+
         binding.btnRoll.setOnClickListener {
             startRolling()
         }
@@ -47,14 +48,14 @@ class MainActivity : AppCompatActivity() {
 
         rollJob = CoroutineScope(Dispatchers.Main).launch {
             rollDiceUntilStop()
-            Log.d(TAG, "rollDiceUntilStop: Stop rolling.")
-            binding.btnStop.isEnabled = false
-            binding.btnRoll.isEnabled = true
         }
     }
 
     private fun stopRolling() {
+        Log.d(TAG, "stopRolling: Stop rolling.")
         inProgress = false
+        binding.btnStop.isEnabled = false
+        binding.btnRoll.isEnabled = true
         rollJob?.cancel()
     }
 
