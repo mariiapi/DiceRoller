@@ -2,12 +2,13 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.diceroller.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     private var inProgress = false
+    private var rollJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,29 +30,40 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnStop.isEnabled = false
         binding.btnRoll.setOnClickListener {
-            rollDiceUntilStop()
+            startRolling()
         }
         binding.btnStop.setOnClickListener{
-            inProgress = false
+            stopRolling()
         }
 
 
     }
 
-    private fun rollDiceUntilStop(){
+    private fun startRolling(){
         Log.d(TAG, "rollDiceUntilStop: Start rolling.")
         inProgress = true
+        binding.btnRoll.isEnabled = false
         binding.btnStop.isEnabled = true
-        while (true){
-            Log.d(TAG, "rollDiceUntilStop: roll.")
-            rollDice()
-            if (!inProgress){
-                Log.d(TAG, "rollDiceUntilStop: Stop rolling.")
-                binding.btnStop.isEnabled = false
-                return
-            }
-        }
 
+        rollJob = CoroutineScope(Dispatchers.Main).launch {
+            rollDiceUntilStop()
+            Log.d(TAG, "rollDiceUntilStop: Stop rolling.")
+            binding.btnStop.isEnabled = false
+            binding.btnRoll.isEnabled = true
+        }
+    }
+
+    private fun stopRolling() {
+        inProgress = false
+        rollJob?.cancel()
+    }
+
+    private suspend fun rollDiceUntilStop() {
+        while (inProgress) {
+            rollDice()
+            Log.d(TAG, "rollDiceUntilStop: roll.")
+            delay(500)
+        }
     }
 
     private fun rollDice() {
