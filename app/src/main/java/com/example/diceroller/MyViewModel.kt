@@ -32,10 +32,12 @@ class MyViewModel : ViewModel() {
             while (_isRolling.value == true) {
                 rollDice()
             }
+            delay(2_000)
         }
     }
 
     fun stopRolling() {
+
         if (_isRolling.value == false) return
         _isRolling.value = false
         rollJob?.cancel()

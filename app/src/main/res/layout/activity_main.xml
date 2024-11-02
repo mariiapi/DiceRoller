@@ -49,22 +49,22 @@
 
             <ImageView
                     android:id="@+id/dice1"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:srcCompat="@drawable/one"
                     android:layout_margin="4dp" />
 
             <ImageView
                     android:id="@+id/dice2"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:srcCompat="@drawable/two"
                     android:layout_margin="4dp" />
 
             <ImageView
                     android:id="@+id/dice3"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:srcCompat="@drawable/three"
                     android:layout_margin="4dp" />
         </LinearLayout>
@@ -79,15 +79,15 @@
 
             <ImageView
                     android:id="@+id/dice4"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:srcCompat="@drawable/four"
                     android:layout_margin="4dp" />
 
             <ImageView
                     android:id="@+id/dice5"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:srcCompat="@drawable/five"
                     android:layout_margin="4dp" />
         </LinearLayout>
