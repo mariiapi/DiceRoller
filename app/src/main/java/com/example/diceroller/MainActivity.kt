@@ -1,14 +1,11 @@
 package com.example.diceroller
 
+import MyViewModel
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.diceroller.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,68 +13,33 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val diceImages = arrayOf(
-        R.drawable.one, R.drawable.two, R.drawable.three,
-        R.drawable.four, R.drawable.five, R.drawable.six
-    )
-
-    private var inProgress = false
-    private var rollJob: Job? = null
+    private val viewModel by viewModels<MyViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnStop.isEnabled = false
+        viewModel.diceImages.observe(this) { images ->
+            with(binding) {
+                dice1.setImageResource(images[0])
+                dice2.setImageResource(images[1])
+                dice3.setImageResource(images[2])
+                dice4.setImageResource(images[3])
+                dice5.setImageResource(images[4])
+            }
+        }
+
+        viewModel.isRolling.observe(this) { inProgress ->
+            binding.btnRoll.isEnabled = !inProgress
+            binding.btnStop.isEnabled = inProgress
+        }
 
         binding.btnRoll.setOnClickListener {
-            startRolling()
-        }
-        binding.btnStop.setOnClickListener{
-            stopRolling()
+            viewModel.startRolling()
         }
 
-
-    }
-
-    private fun startRolling(){
-        Log.d(TAG, "rollDiceUntilStop: Start rolling.")
-        inProgress = true
-        binding.btnRoll.isEnabled = false
-        binding.btnStop.isEnabled = true
-
-        rollJob = CoroutineScope(Dispatchers.Main).launch {
-            rollDiceUntilStop()
+        binding.btnStop.setOnClickListener {
+            viewModel.stopRolling()
         }
-    }
-
-    private fun stopRolling() {
-        Log.d(TAG, "stopRolling: Stop rolling.")
-        inProgress = false
-        binding.btnStop.isEnabled = false
-        binding.btnRoll.isEnabled = true
-        rollJob?.cancel()
-    }
-
-    private suspend fun rollDiceUntilStop() {
-        while (inProgress) {
-            rollDice()
-            Log.d(TAG, "rollDiceUntilStop: roll.")
-            delay(500)
-        }
-    }
-
-    private fun rollDice() {
-        with(binding) {
-            dice1.setImageResource(diceImages.random())
-            dice2.setImageResource(diceImages.random())
-            dice3.setImageResource(diceImages.random())
-            dice4.setImageResource(diceImages.random())
-            dice5.setImageResource(diceImages.random())
-        }
-    }
-
-    companion object{
-        const val TAG = "XXXX"
     }
 }
