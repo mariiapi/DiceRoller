@@ -29,12 +29,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.isRolling.observe(this) { inProgress ->
+        viewModel.isRolling.observe(this) { inProgress: Boolean ->
             binding.btnRoll.isEnabled = !inProgress
             binding.btnStop.isEnabled = inProgress
         }
 
         binding.btnRoll.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Start rolling...", Toast.LENGTH_SHORT).show()
             viewModel.startRolling()
         }
 
