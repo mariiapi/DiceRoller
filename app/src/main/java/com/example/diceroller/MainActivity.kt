@@ -6,11 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.diceroller.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,17 +13,28 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val diceImages = arrayOf(
+        R.drawable.one, R.drawable.two, R.drawable.three,
+        R.drawable.four, R.drawable.five, R.drawable.six
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding.btnRoll.setOnClickListener {
+            rollDice()
         }
+
     }
 
+    private fun rollDice() {
+        with(binding) {
+            dice1.setImageResource(diceImages.random())
+            dice2.setImageResource(diceImages.random())
+            dice3.setImageResource(diceImages.random())
+            dice4.setImageResource(diceImages.random())
+            dice5.setImageResource(diceImages.random())
+        }
+    }
 }
