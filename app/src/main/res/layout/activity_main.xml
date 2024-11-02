@@ -22,7 +22,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintVertical_bias="0.089"
             android:textSize="30sp"
-            android:textColor="@color/black"
+            android:textColor="@color/red"
             android:textStyle="bold" />
 
     <!-- Container for Dice Layouts -->
@@ -99,44 +99,46 @@
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:layout_editor_absoluteX="-16dp"
-            app:layout_constraintVertical_bias="0.91"
-            android:id="@+id/linearLayout">
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="-16dp"
+        app:layout_constraintVertical_bias="0.91"
+        android:id="@+id/linearLayout">
 
-        <!-- Roll Button -->
         <Button
             android:id="@+id/btnRoll"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/roll"
             android:layout_margin="20dp"
+            android:text="@string/roll"
             android:textAllCaps="true"
             android:textSize="16sp"
-            android:textColor="@color/white"
-            android:backgroundTint = "#cc0000"
             android:textStyle="bold"
-            tools:ignore="ButtonStyle" />
+            android:textColor="@color/white"
+            android:backgroundTint="@color/red"
+            android:enabled="true" />
 
-        <!-- Stop Button -->
         <Button
             android:id="@+id/btnStop"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stop"
             android:layout_margin="20dp"
-            android:textSize="16sp"
+            android:text="@string/stop"
             android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:backgroundTint = "#cc0000"
+            android:textSize="16sp"
             android:textStyle="bold"
-            tools:ignore="ButtonStyle" />
+            android:textColor="@color/white"
+            android:backgroundTint="@color/red"
+            android:enabled="false" />
+
 
 
     </LinearLayout>
