@@ -1,10 +1,11 @@
+package com.example.diceroller
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.diceroller.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
 
@@ -25,7 +26,7 @@ class MyViewModel : ViewModel() {
         if (_isRolling.value == true) return
         _isRolling.value = true
 
-        rollJob = viewModelScope.launch(Dispatchers.Default) {
+        rollJob = viewModelScope.launch {
             while (_isRolling.value == true) {
                 rollDice()
             }
@@ -39,7 +40,6 @@ class MyViewModel : ViewModel() {
     }
 
     private fun rollDice() {
-        // Оновлюємо зображення кубиків на головному потоці
         _diceImages.postValue(List(5) { diceImagesArray.random() })
     }
 }

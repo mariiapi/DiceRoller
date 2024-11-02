@@ -1,6 +1,5 @@
 package com.example.diceroller
 
-import MyViewModel
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -42,4 +41,5 @@ class MainActivity : AppCompatActivity() {
             viewModel.stopRolling()
         }
     }
+
 }
