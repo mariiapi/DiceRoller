@@ -32,15 +32,17 @@ class MyViewModel : ViewModel() {
             while (_isRolling.value == true) {
                 rollDice()
             }
-            delay(2_000)
         }
     }
 
     fun stopRolling() {
+        viewModelScope.launch {
+            delay(1_000)
 
-        if (_isRolling.value == false) return
-        _isRolling.value = false
-        rollJob?.cancel()
+            _isRolling.value = false
+            rollJob?.cancel()
+        }
+
     }
 
     private suspend fun rollDice() {
