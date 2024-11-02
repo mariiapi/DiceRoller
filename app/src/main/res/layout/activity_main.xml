@@ -113,31 +113,28 @@
 
         <Button
             android:id="@+id/btnRoll"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginEnd="12dp"
             android:text="@string/roll"
             android:textAllCaps="true"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:backgroundTint="@color/red"
-            android:enabled="true" />
+            android:enabled="true"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btnStop"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginStart="12dp"
             android:text="@string/stop"
             android:textAllCaps="true"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:backgroundTint="@color/red"
-            android:enabled="false" />
+            tools:ignore="ButtonStyle" />
 
 
 
