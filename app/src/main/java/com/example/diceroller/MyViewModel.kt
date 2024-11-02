@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
@@ -40,7 +41,8 @@ class MyViewModel : ViewModel() {
         rollJob?.cancel()
     }
 
-    private fun rollDice() {
+    private suspend fun rollDice() {
+        delay(250)
         _diceImages.postValue(List(5) { diceImagesArray.random() })
     }
 }
