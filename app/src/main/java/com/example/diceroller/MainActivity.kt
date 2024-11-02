@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.isRolling.observe(this) { inProgress: Boolean ->
-            binding.btnRoll.isEnabled = !inProgress
-            binding.btnStop.isEnabled = inProgress
+        viewModel.inProcess.observe(this) { inProcess: Boolean ->
+            binding.btnRoll.isEnabled = !inProcess
+            binding.btnStop.isEnabled = inProcess
         }
 
         binding.btnRoll.setOnClickListener {

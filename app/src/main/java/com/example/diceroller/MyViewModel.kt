@@ -21,13 +21,16 @@ class MyViewModel : ViewModel() {
     val diceImages: LiveData<List<Int>> = _diceImages
 
     private val _isRolling = MutableLiveData(false)
-    val isRolling: LiveData<Boolean>
-        get() = _isRolling
+
+    private val _inProcess = MutableLiveData(false)
+    val inProcess: LiveData<Boolean>
+        get() = _inProcess
 
     private var rollJob: Job? = null
 
     fun startRolling() {
         Log.d(TAG, "startRolling: START ROLLING")
+        _inProcess.value = true
         _isRolling.value = true
 
         rollJob = viewModelScope.launch(Dispatchers.Default) {
@@ -40,6 +43,7 @@ class MyViewModel : ViewModel() {
     fun stopRolling() {
         Log.d(TAG, "stopRolling: STOP ROLLING")
         viewModelScope.launch {
+            _inProcess.value = false
             delay(1_000)
             _isRolling.value = false
             rollJob?.cancel()
